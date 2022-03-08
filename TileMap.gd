@@ -10,6 +10,7 @@ var height = 19
 var grid = {}
 var generated = false
 var rng = RandomNumberGenerator.new()
+var start_point:Vector2
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rng.randomize()
@@ -28,21 +29,42 @@ func _ready():
 			if grid.has(pt+n):
 				astar.connect_points(grid[pt], grid[pt+n], false)
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if generated==false:
-		create_map()
-		generated = true
-	
-
 
 func create_map():
 	var temp_points = PoolVector2Array()
-	for i in range(5):
-		var x = floor(rng.randf_range(0, width))
-		var y = floor(rng.randf_range(0, height))
+	var num_points = 5
+	var state_count = 0
+	var lower_boundx:int
+	var upper_boundx:int
+	var lower_boundy:int
+	var upper_boundy:int
+	for i in range(num_points):
+		match state_count:
+			0:
+				lower_boundx = 1
+				upper_boundx = floor(width/2)
+				lower_boundy = 1
+				upper_boundy = floor(height/2)
+			1:
+				lower_boundx = floor(width/2)
+				upper_boundx = width-1
+				lower_boundy = 1
+				upper_boundy = floor(height/2)
+			2:
+				lower_boundx = 1
+				upper_boundx = floor(width/2)
+				lower_boundy = floor(height/2)
+				upper_boundy = height-1
+			3:
+				lower_boundx = floor(width/2)
+				upper_boundx = width-1
+				lower_boundy = floor(height/2)
+				upper_boundy = height-1
+		var x = floor(rng.randf_range(lower_boundx, upper_boundx))
+		var y = floor(rng.randf_range(lower_boundy, upper_boundy))
 		set_cell(x,y,1)
 		temp_points.append(Vector2(x,y))
+		state_count = (state_count+1) % 4
 	
 	var point_path = []
 	point_path.append(temp_points[0])
@@ -70,4 +92,6 @@ func create_map():
 	var final_path = astar.get_point_path(grid[point_path[4]], grid[point_path[0]])
 	for l in final_path:
 			set_cell(l.x, l.y, 1)
+	start_point = map_to_world(point_path[0], false) + cell_size / 2
+	
 	pass
