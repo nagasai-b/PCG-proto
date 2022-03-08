@@ -4,7 +4,7 @@ extends TileMap
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
+var egg = 1
 var width = 64
 var height = 39
 var grid = []
