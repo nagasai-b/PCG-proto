@@ -43,11 +43,31 @@ func create_map():
 		var y = floor(rng.randf_range(0, height))
 		set_cell(x,y,1)
 		temp_points.append(Vector2(x,y))
-	for p in range(1,5):
-		var p1 = grid[temp_points[p-1]]
-		var p2 = grid[temp_points[p]]
-		var path = astar.get_point_path(p1,p2)
-		for line in path:
-			set_cell(line.x,line.y,1)
-		pass
+	
+	var point_path = []
+	point_path.append(temp_points[0])
+	temp_points.remove(0)
+	while temp_points.size()>0:
+		var min_dist = INF
+		var to_remove = -1
+		var next_closest:Vector2
+		var path_head = point_path.back()
+		for i in range(temp_points.size()):
+			var dist = path_head.distance_to(temp_points[i])
+			if dist < min_dist:
+				min_dist = dist
+				next_closest = temp_points[i]
+				to_remove = i
+		point_path.append(next_closest)
+		temp_points.remove(to_remove)
+		
+	for i in range(1,5):
+		var pt1 = grid[point_path[i-1]]
+		var pt2 = grid[point_path[i]]
+		var path = astar.get_point_path(pt1, pt2)
+		for l in path:
+			set_cell(l.x, l.y, 1)
+	var final_path = astar.get_point_path(grid[point_path[4]], grid[point_path[0]])
+	for l in final_path:
+			set_cell(l.x, l.y, 1)
 	pass
