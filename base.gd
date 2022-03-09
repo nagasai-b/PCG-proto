@@ -11,10 +11,12 @@ func _ready():
 	start_game()
 
 func start_game():
+#	Generate the map, create a player, and put them in based on the 
+#	start of the map -- screen_points @ 0
 	$TileMap.create_map()
 	var p = player.instance()
 	add_child(p)
-	p.position = $TileMap.start_point 
+	p.position = $TileMap.screen_points[0]
 
 func _process(delta):
 	pass
