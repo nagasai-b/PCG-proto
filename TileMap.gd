@@ -11,6 +11,7 @@ var grid = {}
 var generated = false
 var rng = RandomNumberGenerator.new()
 var start_point:Vector2
+var point_path = []
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rng.randomize()
@@ -18,7 +19,7 @@ func _ready():
 	var pointID = 1
 	for i in range(width):
 		for j in range(height):
-			set_cell(i, j, 0)
+			set_cell(i, j, 1)
 			grid[Vector2(i,j)] = pointID
 			astar.add_point(pointID, Vector2(i,j), 1.0)
 			pointID+=1 
@@ -62,11 +63,9 @@ func create_map():
 				upper_boundy = height-1
 		var x = floor(rng.randf_range(lower_boundx, upper_boundx))
 		var y = floor(rng.randf_range(lower_boundy, upper_boundy))
-		set_cell(x,y,1)
+		set_cell(x,y,2+i)
 		temp_points.append(Vector2(x,y))
 		state_count = (state_count+1) % 4
-	
-	var point_path = []
 	point_path.append(temp_points[0])
 	temp_points.remove(0)
 	while temp_points.size()>0:
@@ -87,11 +86,13 @@ func create_map():
 		var pt1 = grid[point_path[i-1]]
 		var pt2 = grid[point_path[i]]
 		var path = astar.get_point_path(pt1, pt2)
-		for l in path:
-			set_cell(l.x, l.y, 1)
+		for l in range(1,path.size()-1):
+			var cellcheck = get_cell(path[l].x, path[l].y)
+			if cellcheck==1:
+				set_cell(path[l].x, path[l].y, 0)
 	var final_path = astar.get_point_path(grid[point_path[4]], grid[point_path[0]])
-	for l in final_path:
-			set_cell(l.x, l.y, 1)
+	for l in range(1,final_path.size()-1):
+		var cellcheck = get_cell(final_path[l].x, final_path[l].y)
+		if cellcheck==1:
+			set_cell(final_path[l].x, final_path[l].y, 0)
 	start_point = map_to_world(point_path[0], false) + cell_size / 2
-	
-	pass
