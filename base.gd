@@ -14,10 +14,10 @@ func _ready():
 func start_game():
 #	Generate the map, create a player, and put them in based on the 
 #	start of the map -- screen_points @ 0
-	$TileMap.create_map()
+	$TileTrack.make_maze()
 	p = player.instance()
 	add_child(p)
-	p.position = $TileMap.screen_points[0]
+	p.position = Vector2(32,32)
 	$MusicPlayer.bus = "Music"
 	$MusicPlayer.stream = mus
 	$MusicPlayer.play()
@@ -26,9 +26,4 @@ func start_game():
 func _process(delta):
 	if Input.is_action_just_pressed("reset"):
 		get_tree().reload_current_scene()
-	if $TileMap.screen_points[current_checkpoint].distance_to(p.position) < 40:
-		print_debug("Got it! ", current_checkpoint+1)
-		$SoundPlayer.stream = chkpt
-		$SoundPlayer.play()
-		current_checkpoint = (current_checkpoint + 1) %$TileMap.screen_points.size()
 
