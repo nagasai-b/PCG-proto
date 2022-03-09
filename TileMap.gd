@@ -10,7 +10,6 @@ var height = 19
 var grid = {}
 var generated = false
 var rng = RandomNumberGenerator.new()
-
 var point_path = []
 var screen_points = []
 # Called when the node enters the scene tree for the first time.
@@ -108,7 +107,7 @@ func create_map():
 				set_cell(path[l].x, path[l].y, 0)
 			var lNeighbor = get_cell(path[l].x-1, path[l].y)
 			var rNeighbor = get_cell(path[l].x+1, path[l].y)
-			if (lNeighbor<2 or rNeighbor<2) :
+			if (lNeighbor<2 or rNeighbor<2):
 				set_cell(path[l].x,path[l].y+1, 0)
 				set_cell(path[l].x,path[l].y-1, 0)
 			var uNeighbor = get_cell(path[l].x, path[l].y+1)
@@ -125,9 +124,14 @@ func create_map():
 			set_cell(final_path[l].x, final_path[l].y, 0)
 		var lNeighbor = get_cell(final_path[l].x-1, final_path[l].y)
 		var rNeighbor = get_cell(final_path[l].x+1, final_path[l].y)
-		if (lNeighbor==1 or rNeighbor==1) :
+		if (lNeighbor<2 or rNeighbor<2):
 			set_cell(final_path[l].x,final_path[l].y+1, 0)
 			set_cell(final_path[l].x,final_path[l].y-1, 0)
+		var uNeighbor = get_cell(final_path[l].x, final_path[l].y+1)
+		var dNeighbor = get_cell(final_path[l].x, final_path[l].y-1)
+		if(uNeighbor<2 or dNeighbor<2):
+			set_cell(final_path[l].x+1,final_path[l].y, 0)
+			set_cell(final_path[l].x-1,final_path[l].y, 0)
 
 #	Finally, we translate the tilemap coordinates to world space (so that we can
 #	use them for later calculations) and put them into an array. We also paint 
