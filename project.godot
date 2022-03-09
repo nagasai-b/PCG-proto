@@ -14,6 +14,11 @@ config/name="PCG proto"
 run/main_scene="res://scenes/base.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/height=640
+window/size/resizable=false
+
 [input]
 
 steer_right={

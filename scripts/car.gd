@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
-var speed = 175
-var rotation_speed = 1.7
+var speed = 200
+var rotation_speed = 5.0
 
 var velocity = Vector2.ZERO
 var rotation_dir = 0
