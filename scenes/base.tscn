@@ -128,3 +128,7 @@ script = ExtResource( 2 )
 position = Vector2( 512, 296 )
 z_index = -1
 current = true
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="SoundPlayer" type="AudioStreamPlayer" parent="."]
