@@ -12,13 +12,12 @@ var generated = false
 var rng = RandomNumberGenerator.new()
 var point_path = []
 var screen_points = []
+var temp_points = PoolVector2Array()
 # Called when the node enters the scene tree for the first time.
-func _ready():
-#	First, initialize our randomizer and our A* component for pathfinding
-#	then we initialize the grid by adding it all to the A* and connecting 
-#	them by horizontal and vertical. grid stores an (x,y):pointID pair for later
-	rng.randomize()
-	astar.reserve_space(width*height)
+
+func init_map():
+	grid = {}
+	astar.clear()
 	var pointID = 1
 	for i in range(width):
 		for j in range(height):
@@ -32,15 +31,22 @@ func _ready():
 		for n in neighbors:
 			if grid.has(pt+n):
 				astar.connect_points(grid[pt], grid[pt+n], false)
-	
 
-func create_map():
+
+func _ready():
+#	First, initialize our randomizer and our A* component for pathfinding
+#	then we initialize the grid by adding it all to the A* and connecting 
+#	them by horizontal and vertical. grid stores an (x,y):pointID pair for later
+	rng.randomize()
+	astar.reserve_space(width*height)
+	init_map()
+
+func generate_temp_points():
 #	The meat of the code. We generate 5 random points (this could be changed 
 #	but we only made 5 sprite markers) in a quadrant based on state_count. 
 #	this makes it so we end up with some kind of circle shape, at the very least.
 #	We then paint these points as default black road (for now) and store them in
 #	their generation order
-	var temp_points = PoolVector2Array()
 	var num_points = 5
 	var state_count = 0
 	var lower_boundx:int
@@ -74,6 +80,8 @@ func create_map():
 		set_cell(x,y,1)
 		temp_points.append(Vector2(x,y))
 		state_count = (state_count+1) % 4
+		
+func order_points():
 #	Down here we just reorder them into a more logical path 
 #	based on distance from the starting node and store it in point_path
 	point_path.append(temp_points[0])
@@ -92,6 +100,7 @@ func create_map():
 		point_path.append(next_closest)
 		temp_points.remove(to_remove)
 
+func paint_map():
 #	Here, we let astar do the work of connecting 2 points in the path.
 #	this generates an array of vectors which tells us how to reach the 
 #	other point. From there, we simply paint our way. Note that we add 
@@ -133,11 +142,16 @@ func create_map():
 			set_cell(final_path[l].x+1,final_path[l].y, 0)
 			set_cell(final_path[l].x-1,final_path[l].y, 0)
 
+func translate_to_world():
 #	Finally, we translate the tilemap coordinates to world space (so that we can
 #	use them for later calculations) and put them into an array. We also paint 
 #	our road markers back onto the map.
-	state_count = 0
 	for i in range(point_path.size()):
 		set_cell(point_path[i].x,point_path[i].y, 2+i)
 		screen_points.append(map_to_world(point_path[i], false)+cell_size / 2)
-	pass
+
+func create_map():
+	generate_temp_points()
+	order_points()
+	paint_map()
+	translate_to_world()

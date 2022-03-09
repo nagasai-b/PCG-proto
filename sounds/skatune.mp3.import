@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/skatune.mp3-d78a601b0c64038e8b1e9945e4d83675.mp3str"
+
+[deps]
+
+source_file="res://sounds/skatune.mp3"
+dest_files=[ "res://.import/skatune.mp3-d78a601b0c64038e8b1e9945e4d83675.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
