@@ -1,6 +1,7 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://sprites/untitled.png" type="Texture" id=1]
+[ext_resource path="res://scenes/RichTextLabel.gd" type="Script" id=2]
 [ext_resource path="res://base.gd" type="Script" id=3]
 [ext_resource path="res://sprites/spritesheet.png" type="Texture" id=4]
 [ext_resource path="res://scripts/TileTrack.gd" type="Script" id=5]
@@ -699,3 +700,11 @@ script = ExtResource( 5 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 512, 320 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_right = 168.0
+margin_bottom = 16.0
+text = "Seed: "
+fit_content_height = true
+scroll_active = false
+script = ExtResource( 2 )

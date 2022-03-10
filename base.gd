@@ -1,4 +1,5 @@
 extends Node2D
+
 onready var player = preload("res://scenes/car.tscn")
 onready var chkpt = preload("res://sounds/checkpoint.wav")
 onready var mus = preload("res://sounds/skatune.mp3")
@@ -23,6 +24,7 @@ func start_game():
 	$MusicPlayer.stream = mus
 	$MusicPlayer.play()
 	$SoundPlayer.bus = "Master"
+	$RichTextLabel.call_me($TileTrack.map_seed)
 
 func _process(delta):
 	if Input.is_action_just_pressed("reset"):

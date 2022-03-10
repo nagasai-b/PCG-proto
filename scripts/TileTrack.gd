@@ -26,11 +26,8 @@ func _ready():
 	if !map_seed:
 		map_seed = randi()
 	seed(map_seed)
-	print(map_seed)
 	tile_size = cell_size
-	make_maze()
-	# translate_to_world()
-	
+
 func translate_to_world():
 #	Finally, we translate the tilemap coordinates to world space (so that we can
 #	use them for later calculations) and put them into an array. We also paint 
