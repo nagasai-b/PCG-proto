@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://base.gd" type="Script" id=3]
 [ext_resource path="res://sprites/spritesheet.png" type="Texture" id=4]
@@ -46,6 +46,18 @@ points = PoolVector2Array( 63.9389, 16.783, 16.0256, 16.3792, 16.1602, 48.2766, 
 
 [sub_resource type="ConvexPolygonShape2D" id=21]
 points = PoolVector2Array( 1.03621, 0.689423, 14.8988, 0.958603, 15.4371, 47.7952, 48.0074, 48.199, 48.4112, 1.09319, 64, 0.824005, 64, 63.6766, 0.228683, 63.6766 )
+
+[sub_resource type="ConvexPolygonShape2D" id=38]
+points = PoolVector2Array( 63.6328, 48.8181, 64, 63.9996, 0.322632, 63.8381, 0.322632, 48.6566 )
+
+[sub_resource type="ConvexPolygonShape2D" id=39]
+points = PoolVector2Array( 0.322632, 0.850937, 64, 0.366425, 64, 16.517, 1.29163, 16.3555 )
+
+[sub_resource type="ConvexPolygonShape2D" id=40]
+points = PoolVector2Array( 0.719543, 63.485, 0.557983, 0.497856, 15.578, 1.46689, 17.1931, 64, 2.01154, 63.808 )
+
+[sub_resource type="ConvexPolygonShape2D" id=41]
+points = PoolVector2Array( 48.6866, 0.174847, 64, 1.6284, 63.7067, 64, 48.5251, 64 )
 
 [sub_resource type="ConvexPolygonShape2D" id=22]
 points = PoolVector2Array( 0, 0.894745, 15.8271, 0.625565, 15.1542, 15.6994, 0.214935, 15.0265 )
@@ -547,6 +559,60 @@ points = PoolVector2Array( 64, 49.2187, 64, 64, 48.8149, 63.7542, 51.2375, 53.39
 16/shape_one_way_margin = 0.0
 16/shapes = [  ]
 16/z_index = 0
+17/name = "spritesheet.png 17"
+17/texture = ExtResource( 4 )
+17/tex_offset = Vector2( 0, 0 )
+17/modulate = Color( 1, 1, 1, 1 )
+17/region = Rect2( 256, 192, 64, 64 )
+17/tile_mode = 0
+17/occluder_offset = Vector2( 0, 0 )
+17/navigation_offset = Vector2( 0, 0 )
+17/shape_offset = Vector2( 0, 0 )
+17/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+17/shape = SubResource( 38 )
+17/shape_one_way = false
+17/shape_one_way_margin = 1.0
+17/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 38 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 39 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+17/z_index = 0
+18/name = "spritesheet.png 18"
+18/texture = ExtResource( 4 )
+18/tex_offset = Vector2( 0, 0 )
+18/modulate = Color( 1, 1, 1, 1 )
+18/region = Rect2( 384, 0, 64, 64 )
+18/tile_mode = 0
+18/occluder_offset = Vector2( 0, 0 )
+18/navigation_offset = Vector2( 0, 0 )
+18/shape_offset = Vector2( 0, 0 )
+18/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+18/shape = SubResource( 40 )
+18/shape_one_way = false
+18/shape_one_way_margin = 1.0
+18/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 40 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 41 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+18/z_index = 0
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 3 )

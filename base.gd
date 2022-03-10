@@ -26,4 +26,10 @@ func start_game():
 func _process(delta):
 	if Input.is_action_just_pressed("reset"):
 		get_tree().reload_current_scene()
+	
+	if $TileTrack.goal.distance_to(p.position) < 30:
+		print_debug("Level Finished! ")
+		$SoundPlayer.stream = chkpt
+		$SoundPlayer.play()
+		get_tree().reload_current_scene()
 

@@ -11,6 +11,8 @@ var tile_size = 64
 var width = 16
 var height = 10
 
+var goal 
+
 var map_seed = 0
 func check_neighbors(cell, unvisited):
 	var list = []
@@ -26,9 +28,9 @@ func _ready():
 	seed(map_seed)
 	print(map_seed)
 	tile_size = cell_size
-	
 	make_maze()
-	generate_game()
+	translate_to_world()
+
 
 func make_maze():
 	var unvisited = []
@@ -43,6 +45,7 @@ func make_maze():
 			unvisited.append(Vector2(x,y))
 	var current = Vector2(0,0)
 	unvisited.erase(current)
+	var last_positions = []
 	while unvisited:
 		var neighbors = check_neighbors(current, unvisited)
 		if neighbors.size() > 0:
@@ -53,17 +56,23 @@ func make_maze():
 			var next_walls = get_cellv(next) - cell_walls[-dir]
 			set_cellv(current, current_walls)
 			set_cellv(next, next_walls)
+			if next_walls == 7 || next_walls == 11 || next_walls == 13 || next_walls == 14:
+				last_positions.append(next)
 			if dir.x != 0:
-				set_cellv(current + dir/2, 5)
+				set_cellv(current + dir/2, 17)
 			else:
-				set_cellv(current + dir/2, 10)
+				set_cellv(current + dir/2, 18)
 			current = next
 			unvisited.erase(current)
 		elif stack:
 			current = stack.pop_back()
+	goal = last_positions[randi()%last_positions.size()]
 
-func generate_game():
-	var x = int(rand_range(1, width - 1))
-	var y = int(rand_range(1, height - 1))
-	set_cellv(Vector2(x,y), 16)
-	
+
+func translate_to_world():
+#	Finally, we translate the tilemap coordinates to world space (so that we can
+#	use them for later calculations) and put them into an array. We also paint 
+#	our road markers back onto the map.
+	set_cellv(goal, 16)
+	goal = map_to_world(goal, false) + cell_size/2
+	print(goal)
