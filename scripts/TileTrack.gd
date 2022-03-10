@@ -29,6 +29,13 @@ func _ready():
 	print(map_seed)
 	tile_size = cell_size
 	make_maze()
+	
+func translate_to_world():
+#	Finally, we translate the tilemap coordinates to world space (so that we can
+#	use them for later calculations) and put them into an array. We also paint 
+#	our road markers back onto the map.
+	set_cellv(goal, 21)
+	goal = map_to_world(goal, false) + cell_size/2
 
 
 func make_maze():
@@ -66,6 +73,5 @@ func make_maze():
 		elif stack:
 			current = stack.pop_back()
 	goal = last_positions[randi()%last_positions.size()]
-	set_cellv(goal, 21)
-	goal = map_to_world(goal, false) + cell_size/2
+
 

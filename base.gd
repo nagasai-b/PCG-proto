@@ -15,6 +15,7 @@ func start_game():
 #	Generate the map, create a player, and put them in based on the 
 #	start of the map -- screen_points @ 0
 	$TileTrack.make_maze()
+	$TileTrack.translate_to_world()
 	p = player.instance()
 	add_child(p)
 	p.position = Vector2(32,32)
