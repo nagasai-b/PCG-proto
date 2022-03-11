@@ -12,6 +12,7 @@ var width = 16
 var height = 10
 
 var goal 
+var first_cell
 
 var map_seed = 0
 func check_neighbors(cell, unvisited):
@@ -27,7 +28,7 @@ func _ready():
 		map_seed = randi()
 	seed(map_seed)
 	tile_size = cell_size
-
+ 
 func translate_to_world():
 #	Finally, we translate the tilemap coordinates to world space (so that we can
 #	use them for later calculations) and put them into an array. We also paint 
@@ -50,6 +51,7 @@ func make_maze():
 	var current = Vector2(0,0)
 	unvisited.erase(current)
 	var last_positions = []
+	var first_positions = current
 	while unvisited:
 		var neighbors = check_neighbors(current, unvisited)
 		if neighbors.size() > 0:
@@ -61,7 +63,7 @@ func make_maze():
 			set_cellv(current, current_walls)
 			set_cellv(next, next_walls)
 			if next_walls == 7 || next_walls == 11 || next_walls == 13 || next_walls == 14:
-				last_positions.append(next)
+				last_positions.append(next)	
 			if dir.x != 0:
 				set_cellv(current + dir/2, 17)
 			else:
